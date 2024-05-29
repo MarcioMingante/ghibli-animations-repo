@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import FilmsContext from '../context/FilmsContext';
 
 type ButtonType = {
@@ -20,6 +20,20 @@ function Button({ id }: ButtonType) {
       setText('Unfavorite');
     }
   };
+
+  useEffect(() => {
+    const reRenderText = () => {
+      const data = favoriteFilms.find((current) => current.id === id);
+
+      if (data) {
+        setText('Unfavorite');
+      } else {
+        setText('Favorite');
+      }
+    };
+
+    reRenderText();
+  }, []);
 
   return (
     <button
