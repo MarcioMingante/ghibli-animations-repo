@@ -6,17 +6,17 @@ export default function Home() {
   const { animeList } = useContext(FilmsContext);
 
   return (
-    <>
+    <main>
       <h1>Films</h1>
-      {animeList.map(({ id, title, url, description }) => (
+      {animeList.map(({ id, title, image, description }) => (
         <FilmCard
           key={ id }
           id={ id }
           title={ title }
-          url={ url }
+          image={ image }
           description={ description }
         />
       ))}
-    </>
+    </main>
   );
 }

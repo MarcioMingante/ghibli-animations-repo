@@ -6,17 +6,17 @@ export default function Favorites() {
   const { favoriteFilms } = useContext(FilmsContext);
 
   return (
-    <>
+    <main>
       <h1>Favorites</h1>
-      {favoriteFilms.map(({ id, title, url, description }) => (
+      {favoriteFilms.map(({ id, title, image, description }) => (
         <FilmCard
           key={ id }
           id={ id }
           title={ title }
-          url={ url }
+          image={ image }
           description={ description }
         />
       ))}
-    </>
+    </main>
   );
 }

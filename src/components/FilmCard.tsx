@@ -1,15 +1,46 @@
+import { useContext, useEffect, useState } from 'react';
 import { FilmCardType } from '../types/types';
-import Button from './Button';
+import FilmsContext from '../context/FilmsContext';
 
-function FilmCard({ id, title, url, description }: FilmCardType) {
+function FilmCard({ id, title, image, description }: FilmCardType) {
+  const { handleFavorite, favoriteFilms } = useContext(FilmsContext);
+  const [text, setText] = useState<'Favorite' | 'Unfavorite'>('Favorite');
+
+  const handleClick = () => {
+    handleFavorite(id);
+    const data = favoriteFilms.find((current) => current.id === id);
+
+    if (data) {
+      setText('Favorite');
+    } else {
+      setText('Unfavorite');
+    }
+  };
+
+  useEffect(() => {
+    const reRenderText = () => {
+      const data = favoriteFilms.find((current) => current.id === id);
+
+      if (data) {
+        setText('Unfavorite');
+      } else {
+        setText('Favorite');
+      }
+    };
+
+    reRenderText();
+  }, []);
+
   return (
     <div>
       <h2>{title}</h2>
-      <img src={ url } alt={ title } />
+      <img src={ image } alt={ title } />
       <p>{description}</p>
-      <Button
-        id={ id }
-      />
+      <button
+        onClick={ handleClick }
+      >
+        {text}
+      </button>
     </div>
   );
 }
